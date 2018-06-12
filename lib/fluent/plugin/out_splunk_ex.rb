@@ -13,6 +13,7 @@
 #
 require 'open-uri'
 require 'json'
+require 'yajl'
 
 class Fluent::SplunkExOutput < Fluent::Output
 
@@ -93,7 +94,7 @@ class Fluent::SplunkExOutput < Fluent::Output
   end
 
   def self.format_json(record)
-    json_str = record.to_json
+    json_str = Yajl.dump(record)
   end
 
   def splunk_send(text, try_count=0)
